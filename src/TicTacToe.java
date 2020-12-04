@@ -5,11 +5,14 @@ import java.util.Scanner;
  */
 
 public class TicTacToe {
-    public static int length = 3;
-    public static String[][] board = new String[length][length];
+    public static int length;
+    public static String[][] board;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter board length: ");
+        length = input.nextInt();
 
         init();
         print();
@@ -52,6 +55,8 @@ public class TicTacToe {
     }
 
     public static void init() {
+        board = new String[length][length];
+        System.out.println(length + "x" + length + " board: ");
         for (int i = 0, k = 1; i < length; i++) {
             for (int j = 0; j < length; j++, k++) {
                 board[i][j] = Integer.toString(k);
