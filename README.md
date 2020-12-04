@@ -5,6 +5,7 @@ Command line based TicTacToe game using JAVA.
 Run the TicTacToe.java file in JAVA environment.
 
 ## How to play
+3 steps to follow -
 <br>
 1) Input the length of the board 
 <br>
