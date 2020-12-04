@@ -20,7 +20,7 @@ public class TicTacToe {
         while (true) {
             System.out.print("Enter X: ");
             int x = input.nextInt();
-            while (checker(x)) {
+            while (checker(x) || x < 1 || x > length * length) {
                 System.out.println("Wrong Input. Try again!");
                 System.out.print("Enter X: ");
                 x = input.nextInt();
@@ -37,7 +37,7 @@ public class TicTacToe {
 
             System.out.print("Enter Y: ");
             int y = input.nextInt();
-            while (checker(y)) {
+            while (checker(y) || y < 1 || y > length * length) {
                 System.out.println("Wrong Input. Try again!");
                 System.out.print("Enter Y: ");
                 y = input.nextInt();
