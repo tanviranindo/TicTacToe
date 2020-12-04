@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/*
+ * @author Tanvir Rahman
+ */
+
 public class TicTacToe {
     public static String[][] board = new String[3][3];
 
