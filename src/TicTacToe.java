@@ -5,7 +5,8 @@ import java.util.Scanner;
  */
 
 public class TicTacToe {
-    public static String[][] board = new String[3][3];
+    public static int length = 3;
+    public static String[][] board = new String[length][length];
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -16,7 +17,7 @@ public class TicTacToe {
         while (true) {
             System.out.print("Enter X: ");
             int x = input.nextInt();
-            while (!checker(x)) {
+            while (checker(x)) {
                 System.out.println("Wrong Input. Try again!");
                 System.out.print("Enter X: ");
                 x = input.nextInt();
@@ -26,11 +27,14 @@ public class TicTacToe {
             if (checkXHorizontal() || checkXVertical() || checkXDiagonal()) {
                 System.out.println("X Wins");
                 break;
-            } else if (full()) break;
+            } else if (full()) {
+                System.out.println("Score Tied");
+                break;
+            }
 
             System.out.print("Enter Y: ");
             int y = input.nextInt();
-            while (!checker(y)) {
+            while (checker(y)) {
                 System.out.println("Wrong Input. Try again!");
                 System.out.print("Enter Y: ");
                 y = input.nextInt();
@@ -40,13 +44,16 @@ public class TicTacToe {
             if (checkYHorizontal() || checkYVertical() || checkYDiagonal()) {
                 System.out.println("Y Wins");
                 break;
-            } else if (full()) break;
+            } else if (full()) {
+                System.out.println("Score Tied");
+                break;
+            }
         }
     }
 
     public static void init() {
-        for (int i = 0, k = 1; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++, k++) {
+        for (int i = 0, k = 1; i < length; i++) {
+            for (int j = 0; j < length; j++, k++) {
                 board[i][j] = Integer.toString(k);
             }
         }
@@ -54,8 +61,8 @@ public class TicTacToe {
 
     public static void print() {
         int i = 0;
-        while (i < board.length) {
-            for (int j = 0; j < board[i].length; j++) {
+        while (i < length) {
+            for (int j = 0; j < length; j++) {
                 System.out.print(board[i][j] + "\t");
             }
             System.out.println();
@@ -64,38 +71,38 @@ public class TicTacToe {
     }
 
     public static void inputX(int x) {
-        for (int i = 0, k = 1; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++, k++) {
+        for (int i = 0, k = 1; i < length; i++) {
+            for (int j = 0; j < length; j++, k++) {
                 if (k == x) board[i][j] = "X";
             }
         }
     }
 
     public static void inputY(int y) {
-        for (int i = 0, k = 1; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++, k++) {
+        for (int i = 0, k = 1; i < length; i++) {
+            for (int j = 0; j < length; j++, k++) {
                 if (k == y) board[i][j] = "Y";
             }
         }
     }
 
     public static boolean checker(int input) {
-        for (int i = 0, k = 1; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++, k++) {
-                if (k == input && (board[i][j].equals("X") || board[i][j].equals("Y"))) return false;
+        for (int i = 0, k = 1; i < length; i++) {
+            for (int j = 0; j < length; j++, k++) {
+                if (k == input && (board[i][j].equals("X") || board[i][j].equals("Y"))) return true;
             }
         }
-        return true;
+        return false;
     }
 
     public static boolean full() {
         int count = 0;
-        for (int i = 0, k = 1; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++, k++) {
+        for (int i = 0, k = 1; i < length; i++) {
+            for (int j = 0; j < length; j++, k++) {
                 if (board[i][j].equals("X") || board[i][j].equals("Y")) count++;
             }
         }
-        return count == board.length * board.length;
+        return count == length * length;
     }
 
     public static boolean checkXHorizontal() {
@@ -104,7 +111,7 @@ public class TicTacToe {
             for (String string : strings) {
                 if (string.equals("X")) {
                     count++;
-                    if (count == board.length) return true;
+                    if (count == length) return true;
                 }
             }
         }
@@ -112,12 +119,12 @@ public class TicTacToe {
     }
 
     public static boolean checkXVertical() {
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < length; i++) {
             int count = 0;
             for (String[] strings : board) {
                 if (strings[i].equals("X")) {
                     count++;
-                    if (count == board.length) return true;
+                    if (count == length) return true;
                 }
             }
         }
@@ -125,19 +132,18 @@ public class TicTacToe {
     }
 
     public static boolean checkXDiagonal() {
-        int i, j;
         int count = 0;
-        for (i = 0, j = 0; i < board.length; i++, j++) {
+        for (int i = 0, j = 0; i < length; i++, j++) {
             if (board[i][j].equals("X")) {
                 count++;
-                if (count == board.length) return true;
+                if (count == length) return true;
             }
         }
         count = 0;
-        for (int k = 0, l = i - 1; k < 3; k++, l--) {
-            if (board[k][l].equals("X")) {
+        for (int i = 0, j = length - 1; i < length; i++, j--) {
+            if (board[i][j].equals("X")) {
                 count++;
-                if (count == board.length) return true;
+                if (count == length) return true;
             }
         }
         return false;
@@ -149,7 +155,7 @@ public class TicTacToe {
             for (String string : strings) {
                 if (string.equals("Y")) {
                     count++;
-                    if (count == board.length) return true;
+                    if (count == length) return true;
                 }
             }
         }
@@ -157,12 +163,12 @@ public class TicTacToe {
     }
 
     public static boolean checkYVertical() {
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < length; i++) {
             int count = 0;
             for (String[] strings : board) {
                 if (strings[i].equals("Y")) {
                     count++;
-                    if (count == board.length) return true;
+                    if (count == length) return true;
                 }
             }
         }
@@ -170,19 +176,18 @@ public class TicTacToe {
     }
 
     public static boolean checkYDiagonal() {
-        int i, j;
         int count = 0;
-        for (i = 0, j = 0; i < board.length; i++, j++) {
+        for (int i = 0, j = 0; i < length; i++, j++) {
             if (board[i][j].equals("Y")) {
                 count++;
-                if (count == board.length) return true;
+                if (count == length) return true;
             }
         }
         count = 0;
-        for (int k = 0, l = i - 1; k < board.length; k++, l--) {
-            if (board[k][l].equals("Y")) {
+        for (int i = 0, j = length - 1; i < length; i++, j--) {
+            if (board[i][j].equals("Y")) {
                 count++;
-                if (count == board.length) return true;
+                if (count == length) return true;
             }
         }
         return false;
